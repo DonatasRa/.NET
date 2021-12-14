@@ -1,0 +1,10 @@
+﻿@model ZooWebApp.Models.AnimalListModel
+
+<h3>Animal List</h3>
+
+<ul>
+    @foreach (var item in Model.Animals)
+    {
+        <li>@item.Name</li>
+    }
+</ul>
