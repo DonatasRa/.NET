@@ -4,6 +4,7 @@
    
 <table>
     <tr>
+        <th>Id</th>
         <th>Name</th>
         <th>Description</th>
         <th>Age</th>
@@ -14,18 +15,20 @@
 {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.Id)                  
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Name)                  
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Description)<br/>                    
+            @Html.DisplayFor(modelItem => item.Description)                   
         </td>
         <td>                 
-            @Html.DisplayFor(modelItem => item.Age)<br/>
+            @Html.DisplayFor(modelItem => item.Age)
         </td>
         <td>                 
-            @Html.DisplayFor(modelItem => item.Gender)<br/>
+            @Html.DisplayFor(modelItem => item.Gender)
         </td>
-
     </tr>
 }
 </table>
