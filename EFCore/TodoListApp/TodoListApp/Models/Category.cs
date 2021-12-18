@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace TodoListApp.Models
 {
-    public class Todo
+    public class Category
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-        public Category Category { get; set; }
+        public List<Todo> Todos { get; set; }
     }
 }

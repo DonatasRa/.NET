@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TodoListApp.Data;
 
 namespace TodoListApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20211215175844_Relationship")]
+    partial class Relationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,23 +57,6 @@ namespace TodoListApp.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Todos");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Todo1"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Todo2"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Todo3"
-                        });
                 });
 
             modelBuilder.Entity("TodoListApp.Models.Todo", b =>
