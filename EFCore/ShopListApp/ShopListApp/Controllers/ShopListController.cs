@@ -27,7 +27,7 @@ namespace ShopListApp.Controllers
         {
             var shopItem = new ShopItem();
 
-            return View("AddItem");
+            return View();
         }
 
         [HttpPost]
