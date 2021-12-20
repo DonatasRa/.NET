@@ -19,22 +19,12 @@
             <td>@item.Id</td>
             <td>@item.Name</td>
             <td>@item.ExpiryDate</td>
-            <td></td>
+            <td>
+                @Html.ActionLink("Update","Update", "ShopList", new {id = @item.Id } ,new { @class= "btn btn-secondary" }) 
+                @Html.ActionLink("Delete","Delete", "ShopList", new {id = @item.Id } ,new { @class= "btn btn-danger" })
+            </td>
             <td class="table-secondary">@item.Shop.Name</td>
             <td class="table-secondary"></td>
         </tr>
     }
 </table>
-
-@*<ul>
- @foreach (var shop in @Model)
-{
-    <li>@shop.Name</li>
-    <li>
-            @foreach(var item in @shop.Items)
-            {
-                <li>@item.Name<li> 
-            }
-    </li>
-}
-</ul>*@

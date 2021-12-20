@@ -23,5 +23,45 @@ namespace ShopListApp.Controllers
             return View(shopItems);
         }
 
+        public IActionResult Add()
+        {
+            var shopItem = new ShopItem();
+
+            return View("AddItem");
+        }
+
+        [HttpPost]
+        public IActionResult Add(ShopItem shopItem)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(shopItem);
+            }
+            _context.ShopItems.Add(shopItem);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var shopItem = _context.ShopItems.Find(id);
+            _context.ShopItems.Remove(shopItem);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Update(int id)
+        {
+            var shopItem = _context.ShopItems.Find(id);
+            return View(shopItem);
+        }
+
+        [HttpPost]
+        public IActionResult Update(ShopItem shopItem)
+        {
+            _context.ShopItems.Update(shopItem);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
