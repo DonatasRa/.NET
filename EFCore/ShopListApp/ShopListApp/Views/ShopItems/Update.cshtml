@@ -1,13 +1,11 @@
 ﻿@model ShopItem
 
-@using (Html.BeginForm("Add", "ShopList", FormMethod.Post))
+@using (Html.BeginForm("Update", "ShopItems", FormMethod.Post))
 {
     @Html.LabelFor(a => a.Name)
     @Html.TextBoxFor(a => a.Name)
     @Html.ValidationMessageFor(a => a.Name)
 
-    <br />
-    
     @Html.LabelFor(a => a.ShopId)
     @Html.TextBoxFor(a => a.ShopId)
         

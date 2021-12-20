@@ -1,0 +1,24 @@
+﻿@model List<Shop>
+
+<h3>Shops</h3>
+
+<br />
+
+<table class="table">
+    <tr>
+        <th>Shop Id</th>
+        <th>Name</th>
+        <th>Action</th>
+    </tr>
+    @foreach (var shop in @Model)
+    {
+        <tr>
+            <td>@shop.Id</td>
+            <td>@shop.Name</td>
+            <td>
+                @Html.ActionLink("Update","Update", "Shops", new {id = @shop.Id } ,new { @class= "btn btn-secondary" }) 
+                @Html.ActionLink("Delete","Delete", "Shops", new {id = @shop.Id } ,new { @class= "btn btn-danger" })
+            </td>
+        </tr>
+    }
+</table>

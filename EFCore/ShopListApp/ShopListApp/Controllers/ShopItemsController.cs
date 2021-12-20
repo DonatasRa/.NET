@@ -7,11 +7,11 @@ using System.Linq;
 
 namespace ShopListApp.Controllers
 {
-    public class ShopListController : Controller
+    public class ShopItemsController : Controller
     {
         private DataContext _context;
 
-        public ShopListController(DataContext context)
+        public ShopItemsController(DataContext context)
         {
             _context = context;
         }
