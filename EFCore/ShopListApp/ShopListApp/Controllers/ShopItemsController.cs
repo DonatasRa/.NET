@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShopListApp.Data;
+using ShopListApp.Dtos;
 using ShopListApp.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,19 +26,24 @@ namespace ShopListApp.Controllers
 
         public IActionResult Add()
         {
-            var shopItem = new ShopItem();
-
-            return View();
+            var addShopItem = new AddShopItem()
+            {
+                ShopItems = new ShopItem(),
+                AllShops = _context.Shops.ToList()
+            };
+            return View(addShopItem);
         }
 
         [HttpPost]
-        public IActionResult Add(ShopItem shopItem)
+        public IActionResult Add(AddShopItem addshopItem)
         {
             if (!ModelState.IsValid)
             {
-                return View(shopItem);
+                addshopItem.AllShops = _context.Shops.ToList();
+                return View(addshopItem);
             }
-            _context.ShopItems.Add(shopItem);
+
+            _context.ShopItems.Add(addshopItem.ShopItems);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -52,14 +58,19 @@ namespace ShopListApp.Controllers
 
         public IActionResult Update(int id)
         {
-            var shopItem = _context.ShopItems.Find(id);
-            return View(shopItem);
+            var updateShopItem = new UpdateShopItem()
+            {
+                ShopItems = _context.ShopItems.Find(id),
+                AllShops = _context.Shops.ToList()
+            };
+
+            return View(updateShopItem);
         }
 
         [HttpPost]
-        public IActionResult Update(ShopItem shopItem)
+        public IActionResult Update(UpdateShopItem updateShopItem)
         {
-            _context.ShopItems.Update(shopItem);
+            _context.ShopItems.Update(updateShopItem.ShopItems);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
