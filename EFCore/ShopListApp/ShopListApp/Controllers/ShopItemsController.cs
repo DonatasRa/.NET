@@ -63,7 +63,10 @@ namespace ShopListApp.Controllers
                 ShopItems = _context.ShopItems.Find(id),
                 AllShops = _context.Shops.ToList()
             };
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
             return View(updateShopItem);
         }
 
