@@ -5,23 +5,12 @@
     @Html.LabelFor(a => a.ShopItems.Name)
     @Html.TextBoxFor(a => a.ShopItems.Name)
     @Html.ValidationMessageFor(a => a.ShopItems.Name)
-<<<<<<< Updated upstream
 
      <br />
     
     @Html.LabelFor(a => a.AllShops)
     @Html.DropDownListFor(a => a.ShopItems.ShopId, new SelectList(@Model.AllShops, "Id", "Name"))
     @Html.HiddenFor(a => a.ShopItems.Id)
-     
-=======
 
-     <br />
-
-    @Html.LabelFor(a => a.AllShops)
-    @Html.DropDownListFor(a => a.ShopItems.ShopId, new SelectList(@Model.AllShops, "Id", "Name"))
-    @Html.HiddenFor(a => a.ShopItems.Id)
-
->>>>>>> Stashed changes
     <input type="submit" value="Submit"/>
-    
 }

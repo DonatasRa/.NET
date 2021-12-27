@@ -7,16 +7,9 @@
     @Html.ValidationMessageFor(a => a.ShopItems.Name)
 
     <br />
-<<<<<<< Updated upstream
-    
-    @Html.LabelFor(a => a.AllShops)
-    @Html.DropDownListFor(a => a.ShopItems.ShopId, new SelectList(@Model.AllShops, "Id", "Name"))
-        
-=======
 
     @Html.LabelFor(a => a.AllShops)
     @Html.DropDownListFor(a => a.ShopItems.ShopId, new SelectList(@Model.AllShops, "Id", "Name"))
 
->>>>>>> Stashed changes
     <input type="submit" value="Submit"/>
 } 
