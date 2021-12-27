@@ -1,15 +1,15 @@
-﻿@model ShopListApp.Dtos.AddShopItem
+﻿@model ShopItem
 
 @using (Html.BeginForm("Add", "ShopItems", FormMethod.Post))
 {
-    @Html.LabelFor(a => a.ShopItems.Name)
-    @Html.TextBoxFor(a => a.ShopItems.Name)
-    @Html.ValidationMessageFor(a => a.ShopItems.Name)
+    @Html.LabelFor(a => a.Name)
+    @Html.TextBoxFor(a => a.Name)
+    @Html.ValidationMessageFor(a => a.Name)
 
     <br />
     
-    @Html.LabelFor(a => a.AllShops)
-    @Html.DropDownListFor(a => a.ShopItems.ShopId, new SelectList(@Model.AllShops, "Id", "Name"))
+    @Html.LabelFor(a => a.ShopId)
+    @Html.TextBoxFor(a => a.ShopId)
         
     <input type="submit" value="Submit"/>
 }

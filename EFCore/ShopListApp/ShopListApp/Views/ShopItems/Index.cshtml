@@ -11,6 +11,7 @@
         <th>Expiry Date</th>
         <th>Action</th>
         <th class="table-secondary">Shop Name</th>
+        <th class="table-secondary">Action</th>
     </tr>
     @foreach (var item in @Model)
     {
@@ -23,6 +24,7 @@
                 @Html.ActionLink("Delete","Delete", "ShopItems", new {id = @item.Id } ,new { @class= "btn btn-danger" })
             </td>
             <td class="table-secondary">@item.Shop.Name</td>
+            <td class="table-secondary"></td>
         </tr>
     }
 </table>

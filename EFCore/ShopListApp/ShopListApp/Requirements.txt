@@ -1,4 +1,4 @@
-﻿﻿﻿1. Create an application which uses EF Core and Razor Mvc technologies to display shopItems as well as Shops
+﻿1. Create an application which uses EF Core and Razor Mvc technologies to display shopItems as well as Shops
 
 Shop should have Id, Name
 ShopItem should have Id, Name, ShopId, ExpiryDate (DateTime = DateTime.UtcNow)
@@ -40,7 +40,7 @@ Advanced and Optional:
   - Update Shop (modify Shop to use soft-delete)
 5. Research and implement 'Generic Repository' pattern
 
--------------------------------------------------------
+------------------------------------------------------
 
 6. Add Tag List/Add/Remove functionality.
 7. You have List/Add/Remove for Shops/Tags/ShopItems -> try to minimised the code used (Research c# Generics)
