@@ -14,6 +14,9 @@ namespace ShopListApp.Data
 
         public DbSet<Shop> Shops { get; set; }
 
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<ShopItemTag> ShopItemTags { get; set; }
+
         public DataContext(DbContextOptions<DataContext> options)
             : base(options)
         {
@@ -21,6 +24,9 @@ namespace ShopListApp.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ShopItemTag>()
+                .HasKey(sit => new { sit.TagId, sit.ShopItemId });
+
             modelBuilder.Entity<Shop>()
                 .HasData(
                     new Shop

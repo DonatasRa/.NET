@@ -11,5 +11,10 @@
     @Html.LabelFor(a => a.AllShops)
     @Html.DropDownListFor(a => a.ShopItems.ShopId, new SelectList(@Model.AllShops, "Id", "Name"))
 
+    <br />
+
+    @Html.LabelFor(a => a.ShopItems.ShopItemTags)
+    @Html.ListBoxFor(a => a.SelectedTagIds, new SelectList(@Model.Tags,"TagId", "TagName"))
+
     <input type="submit" value="Submit"/>
 } 

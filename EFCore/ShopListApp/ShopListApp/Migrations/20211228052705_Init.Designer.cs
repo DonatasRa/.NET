@@ -10,8 +10,8 @@ using ShopListApp.Data;
 namespace ShopListApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211216164750_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20211228052705_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -66,44 +66,116 @@ namespace ShopListApp.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ShopId");
+
                     b.ToTable("ShopItems");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            ExpiryDate = new DateTime(2021, 12, 16, 16, 47, 49, 708, DateTimeKind.Utc).AddTicks(9915),
+                            ExpiryDate = new DateTime(2021, 12, 28, 5, 27, 5, 229, DateTimeKind.Utc).AddTicks(147),
                             Name = "Kepure",
                             ShopId = 1
                         },
                         new
                         {
                             Id = 2,
-                            ExpiryDate = new DateTime(2021, 12, 16, 16, 47, 49, 709, DateTimeKind.Utc).AddTicks(255),
+                            ExpiryDate = new DateTime(2021, 12, 28, 5, 27, 5, 229, DateTimeKind.Utc).AddTicks(510),
                             Name = "Batai",
                             ShopId = 1
                         },
                         new
                         {
                             Id = 3,
-                            ExpiryDate = new DateTime(2021, 12, 16, 16, 47, 49, 709, DateTimeKind.Utc).AddTicks(257),
+                            ExpiryDate = new DateTime(2021, 12, 28, 5, 27, 5, 229, DateTimeKind.Utc).AddTicks(513),
                             Name = "Bulves",
                             ShopId = 2
                         },
                         new
                         {
                             Id = 4,
-                            ExpiryDate = new DateTime(2021, 12, 16, 16, 47, 49, 709, DateTimeKind.Utc).AddTicks(260),
+                            ExpiryDate = new DateTime(2021, 12, 28, 5, 27, 5, 229, DateTimeKind.Utc).AddTicks(515),
                             Name = "Morkos",
                             ShopId = 2
                         },
                         new
                         {
                             Id = 5,
-                            ExpiryDate = new DateTime(2021, 12, 16, 16, 47, 49, 709, DateTimeKind.Utc).AddTicks(262),
+                            ExpiryDate = new DateTime(2021, 12, 28, 5, 27, 5, 229, DateTimeKind.Utc).AddTicks(517),
                             Name = "Svogunai",
                             ShopId = 2
                         });
+                });
+
+            modelBuilder.Entity("ShopListApp.Models.ShopItemTag", b =>
+                {
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ShopItemId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TagId", "ShopItemId");
+
+                    b.HasIndex("ShopItemId");
+
+                    b.ToTable("ShopItemTags");
+                });
+
+            modelBuilder.Entity("TodoListApplication.Models.Tag", b =>
+                {
+                    b.Property<int>("TagId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("TagName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TagId");
+
+                    b.ToTable("Tag");
+                });
+
+            modelBuilder.Entity("ShopListApp.Models.ShopItem", b =>
+                {
+                    b.HasOne("ShopListApp.Models.Shop", "Shop")
+                        .WithMany()
+                        .HasForeignKey("ShopId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Shop");
+                });
+
+            modelBuilder.Entity("ShopListApp.Models.ShopItemTag", b =>
+                {
+                    b.HasOne("ShopListApp.Models.ShopItem", "ShopItem")
+                        .WithMany("ShopItemTags")
+                        .HasForeignKey("ShopItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TodoListApplication.Models.Tag", "Tag")
+                        .WithMany("ShopItemTags")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ShopItem");
+
+                    b.Navigation("Tag");
+                });
+
+            modelBuilder.Entity("ShopListApp.Models.ShopItem", b =>
+                {
+                    b.Navigation("ShopItemTags");
+                });
+
+            modelBuilder.Entity("TodoListApplication.Models.Tag", b =>
+                {
+                    b.Navigation("ShopItemTags");
                 });
 #pragma warning restore 612, 618
         }

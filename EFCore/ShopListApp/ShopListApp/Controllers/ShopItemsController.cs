@@ -19,7 +19,7 @@ namespace ShopListApp.Controllers
 
         public IActionResult Index()
         {
-            List<ShopItem> shopItems = _context.ShopItems.Include(c => c.Shop).ToList();
+            List<ShopItem> shopItems = _context.ShopItems.Include(c => c.ShopItemTags).ThenInclude(c => c.Tag).ToList();
 
             return View(shopItems);
         }
@@ -29,7 +29,8 @@ namespace ShopListApp.Controllers
             var addShopItem = new AddShopItem()
             {
                 ShopItems = new ShopItem(),
-                AllShops = _context.Shops.ToList()
+                AllShops = _context.Shops.ToList(),
+                Tags = _context.Tags.ToList()
             };
             return View(addShopItem);
         }
@@ -45,6 +46,15 @@ namespace ShopListApp.Controllers
 
             _context.ShopItems.Add(addshopItem.ShopItems);
             _context.SaveChanges();
+
+            foreach (var tagId in addshopItem.SelectedTagIds)
+            {
+                _context.ShopItemTags.Add(new ShopItemTag()
+                {
+                    TagId = tagId,
+                    ShopItemId = addshopItem.ShopItems.Id
+                });
+            }
             return RedirectToAction("Index");
         }
 
