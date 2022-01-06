@@ -14,6 +14,7 @@ namespace RegistracijaApp.Data
 
         public DbSet<Answer> Answers { get; set; }
 
+        public DbSet<Form> Forms { get; set; }
 
         public DataContext(DbContextOptions<DataContext> options)
             : base(options)
@@ -22,34 +23,51 @@ namespace RegistracijaApp.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Question>()
-                .HasMany(c => c.Answers)
-                .WithOne(e => e.Questions);
+            //modelBuilder.Entity<Question>()
+            //    .HasMany(c => c.PossibleAnswers)
+            //    .WithOne(e => e.Question);
+
+            modelBuilder.Entity<Form>().HasData(
+                new Form()
+                {
+                    Id = 1,
+                    Title = "Pirmoji forma"
+                });
 
             modelBuilder.Entity<Question>().HasData(
                 new Question()
                 {
                     Id = 1,
+                    AnswerId = null,
+                    FormId = 1,
                     Title = "Reikia atlikti rangos darbus"
                 },
                 new Question()
                 {
                     Id = 2,
+                    AnswerId = null,
+                    FormId = 1,
                     Title = "Rangos darbus atliks"
                  },
                 new Question()
                 {
                     Id = 3,
+                    AnswerId = null,
+                    FormId = 1,
                     Title = "Verslo klientas"
                 },
                 new Question()
                 {
                     Id = 4,
+                    AnswerId = null,
+                    FormId = 1,
                     Title = "Skaičiavimo metodas"
                 },
                 new Question()
                 {
                     Id = 5,
+                    AnswerId = null,
+                    FormId = 1,
                     Title = "Svarbus klientas"
                 });
 
@@ -104,7 +122,7 @@ namespace RegistracijaApp.Data
                 new Answer()
                 {
                     Id = 9,
-                    Value = "",
+                    Value = "Eilinis mirtingasis",
                     QuestionId = 5
                 },
                 new Answer()

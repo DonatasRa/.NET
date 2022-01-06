@@ -30,6 +30,7 @@ namespace RegistracijaApp
             services.AddDbContext<DataContext>(d => d.UseSqlServer(defaultConnection));
             services.AddTransient<QuestionRepository>();
             services.AddTransient<AnswerRepository>();
+            services.AddTransient<FormRepository>();
             services.AddControllersWithViews();
         }
 

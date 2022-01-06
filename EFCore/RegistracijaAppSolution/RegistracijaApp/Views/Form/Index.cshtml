@@ -1,0 +1,34 @@
+﻿@model List<Form>
+
+@using (Html.BeginForm("Index", "Form", FormMethod.Post))
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr class="table-active">
+                 <th>Registracijos požymiai</th>
+                 <th>Reikšmė</th>
+            </tr>
+        </thead>
+        
+         <tbody>
+            @for (var i = 0; i < @Model.Count; i++)
+                {       
+                     @for (var a = 0; a < @Model[i].Questions.Count; a++)
+                         {
+                            <tr>
+                                <td>@Model[i].Questions[a].Title</td>
+                                <td>
+                                    @Html.HiddenFor(f => @Model[i].Questions[a].Id)
+                                    @Html.DropDownListFor(f => @Model[i].Questions[a].AnswerId,
+                                            new SelectList(@Model[i].Questions[a].PossibleAnswers,"Id", "Value"), "") 
+                                </td>
+                            </tr>
+                          }  
+                 }
+         </tbody>
+    </table>
+
+    <input type="submit" value="Koreguoti požymius"  id="btnSubmit" class="btn btn-primary"/>
+    <input type="submit" name="answer" value="Saugoti pataisymus" id="btnSave" disabled class="btn btn-success"/>
+    <input type="submit" name="answer" value="Atšaukti pataisymus" id="btnCancel" disabled class="btn btn-danger"/>
+}

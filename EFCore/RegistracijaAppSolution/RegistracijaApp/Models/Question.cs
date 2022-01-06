@@ -2,12 +2,14 @@
 
 namespace RegistracijaApp.Models
 {
-    public class Question
+    public class Question : Entity
     {
-        public int Id { get; set; }
-
         public string Title { get; set; }
 
-        public List<Answer> Answers { get; set; }
+        public int? AnswerId { get; set; }
+
+        public List<Answer> PossibleAnswers { get; set; }
+
+        public int FormId { get; set; }
     }
 }
