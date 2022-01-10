@@ -6,11 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RegistracijaApp.Data;
-using RegistracijaApp.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RegistracijaApp
 {
@@ -28,9 +23,6 @@ namespace RegistracijaApp
         {
             var defaultConnection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<DataContext>(d => d.UseSqlServer(defaultConnection));
-            services.AddTransient<QuestionRepository>();
-            services.AddTransient<AnswerRepository>();
-            services.AddTransient<FormRepository>();
             services.AddControllersWithViews();
         }
 

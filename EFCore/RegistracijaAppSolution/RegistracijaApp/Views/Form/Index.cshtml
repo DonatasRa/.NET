@@ -20,7 +20,7 @@
                                 <td>
                                     @Html.HiddenFor(f => @Model[i].Questions[a].Id)
                                     @Html.DropDownListFor(f => @Model[i].Questions[a].AnswerId,
-                                            new SelectList(@Model[i].Questions[a].PossibleAnswers,"Id", "Value"), "") 
+                                            new SelectList(@Model[i].Questions[a].PossibleAnswers,"Id", "Value")) 
                                 </td>
                             </tr>
                           }  
@@ -28,7 +28,9 @@
          </tbody>
     </table>
 
-    <input type="submit" value="Koreguoti požymius"  id="btnSubmit" class="btn btn-primary"/>
-    <input type="submit" name="answer" value="Saugoti pataisymus" id="btnSave" disabled class="btn btn-success"/>
-    <input type="submit" name="answer" value="Atšaukti pataisymus" id="btnCancel" disabled class="btn btn-danger"/>
+    <input type="button" value="Koreguoti požymius"  id="btnEdit" class="btn btn-primary"/>
+    <input type="submit" name="answer" value="Saugoti pataisymus" id="btnSave" class="btn btn-success" />
+    <input type="reset" name="answer" value="Atšaukti pataisymus" id="btnCancel"  class="btn btn-danger"/>
 }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/js/form.js"></script>

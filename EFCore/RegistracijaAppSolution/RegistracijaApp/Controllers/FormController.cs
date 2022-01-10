@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using RegistracijaApp.Data;
 using RegistracijaApp.Models;
-using RegistracijaApp.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,28 +19,20 @@ namespace RegistracijaApp.Controllers
             _context = context;
         }
 
-        //private AnswerRepository _answerRepository;
-
-        //private QuestionRepository _questionRepository;
-
-        //private FormRepository _formRepository;
-
-        //
-
-        //public FormController(AnswerRepository answerRepository, QuestionRepository questionRepository, FormRepository formRepository)
-        //{
-        //    _answerRepository = answerRepository;
-        //    _questionRepository = questionRepository;
-        //    _formRepository = formRepository;
-        //}
-
-        public IActionResult Index()
+        public IActionResult Index(int regId)
         {
             var forms = _context.Forms
                 .Include(f => f.Questions)
                 .ThenInclude(a => a.PossibleAnswers).ToList();
 
             return View(forms);
+        }
+
+        [HttpPost]
+        public void Update(Form forms)
+        {
+            _context.Forms.Update(forms);
+            _context.SaveChanges();
         }
     }
 }
