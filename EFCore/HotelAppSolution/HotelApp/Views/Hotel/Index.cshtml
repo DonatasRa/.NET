@@ -1,4 +1,4 @@
-﻿@model List<Hotel>
+﻿@model List<HotelApp.DTOs.Hotel>
 
 <h2>Hotels</h2>
 
@@ -28,8 +28,8 @@
                  @hotel.Address
               </td>
               <td>
-                 @Html.ActionLink("Select","Select", "Hotel", new {id = hotel.Id } ,new { @class= "btn btn-primary" })
                  @Html.ActionLink("Edit","Edit", "Hotel", new {id = hotel.Id } ,new { @class= "btn btn-secondary" }) 
+                 @Html.ActionLink("Details","Details", "Hotel", new {id = hotel.Id } ,new { @class= "btn btn-primary" })
                  @Html.ActionLink("Delete","Delete", "Hotel", new {id = @hotel.Id } ,new { @class= "btn btn-danger" })
               </td>
           </tr>
