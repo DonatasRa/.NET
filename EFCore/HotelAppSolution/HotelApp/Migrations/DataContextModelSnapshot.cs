@@ -35,7 +35,7 @@ namespace HotelApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cities");
+                    b.ToTable("Cities", (string)null);
                 });
 
             modelBuilder.Entity("HotelApp.Models.Cleaner", b =>
@@ -59,7 +59,7 @@ namespace HotelApp.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("Cleaners");
+                    b.ToTable("Cleaners", (string)null);
                 });
 
             modelBuilder.Entity("HotelApp.Models.Hotel", b =>
@@ -86,7 +86,7 @@ namespace HotelApp.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("Hotels");
+                    b.ToTable("Hotels", (string)null);
                 });
 
             modelBuilder.Entity("HotelApp.Models.Room", b =>
@@ -118,7 +118,7 @@ namespace HotelApp.Migrations
 
                     b.HasIndex("HotelId");
 
-                    b.ToTable("Rooms");
+                    b.ToTable("Rooms", (string)null);
                 });
 
             modelBuilder.Entity("HotelApp.Models.Cleaner", b =>

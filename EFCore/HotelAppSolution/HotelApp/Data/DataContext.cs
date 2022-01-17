@@ -1,4 +1,4 @@
-﻿using HotelApp.DTOs;
+﻿using HotelApp.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace HotelApp.Data

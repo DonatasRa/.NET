@@ -1,0 +1,61 @@
+﻿@model HotelApp.DTOs.HotelDetails
+
+
+<h3>Hotel Details</h3>
+<br />
+<h4>Available Rooms:</h4>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Floor Number</th>
+      <th scope="col">Room Number</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+      @foreach (var @room in @Model.AvailableRooms)
+      {
+          <tr>
+              <td>
+                 @room.Floor
+              </td>
+              <td>
+                 @room.RoomNumber
+              </td>
+              <td>
+                 @Html.ActionLink("Book","BookRoom", "Room", new {id = room.Id } ,new { @class= "btn btn-success" }) 
+              </td>
+          </tr>
+      }
+  </tbody>
+</table>
+
+<br />
+<h4>Booked Rooms:</h4>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Floor Number</th>
+      <th scope="col">Room Number</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+      @foreach (var @room in @Model.BookedRooms)
+      {
+          <tr>
+              <td>
+                 @room.Floor
+              </td>
+              <td>
+                 @room.RoomNumber
+              </td>
+              <td>
+                 @Html.ActionLink("Book","BookRoom", "Room", new {id = room.Id }, new { @class= "btn btn-success disabled" }) 
+              </td>
+          </tr>
+      }
+  </tbody>
+</table>

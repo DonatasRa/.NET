@@ -10,6 +10,6 @@ namespace HotelApp.Models
 
         public bool isBooked { get; set; } = false;
 
-        public int RoomNum { get; set; }
+        public int RoomNumber { get; set; }
     }
 }

@@ -1,0 +1,18 @@
+﻿@model HotelApp.DTOs.CreateHotel
+
+@using (Html.BeginForm("Create", "Hotel", FormMethod.Post))
+{
+    @Html.LabelFor(a => a.Name, new {@class = "form-label"})
+    @Html.TextBoxFor(a => a.Name, new {@class = "form-control"})
+
+    @Html.LabelFor(h => h.CityId, new {@class = "form-label"})
+    @Html.DropDownListFor(h => h.CityId, new SelectList(@Model.SelectCities,"Id", "Name"), new {@class = "form-control"})
+
+    @Html.LabelFor(a => a.Address, new {@class = "form-label"})
+    @Html.TextBoxFor(a => a.Address, new {@class = "form-control"})
+
+    @Html.LabelFor(a => a.MaxRooms, new {@class = "form-label"})
+    @Html.TextBoxFor(a => a.MaxRooms, new {@class = "form-control"})
+        
+    <input type="submit" value="Create", class="btn btn-success"}/>
+}

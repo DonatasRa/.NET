@@ -1,0 +1,38 @@
+﻿@model HotelApp.DTOs.EditHotel
+
+@using (Html.BeginForm("Edit", "Hotel", FormMethod.Post))
+{
+    <div class="mb-3">
+
+        @Html.LabelFor(h => h.Hotel.Name, new {@class = "form-label"})
+        @Html.TextBoxFor(h => h.Hotel.Name, new {@class = "form-control"})
+        @Html.ValidationMessageFor(h => h.Hotel.Name)
+
+    </div>
+
+    <div class="mb-3">
+
+        @Html.HiddenFor(h => h.Hotel.Id)
+        @Html.LabelFor(h => h.Hotel.City, new {@class = "form-label"})
+        @Html.DropDownListFor(h => h.CityId, new SelectList(@Model.SelectCities,"Id", "Name"), new {@class = "form-control"})
+    
+    </div>
+
+    <div class="mb-3">
+
+        @Html.LabelFor(h => h.Hotel.Address, new {@class = "form-label"})
+        @Html.TextBoxFor(h => h.Hotel.Address, new {@class = "form-control"})
+        @Html.ValidationMessageFor(h => h.Hotel.Address)
+
+    </div>
+
+    <div class="mb-3">
+
+        @Html.LabelFor(h => h.Hotel.MaxRooms, new {@class = "form-label"})
+        @Html.TextBoxFor(h => h.Hotel.MaxRooms, new {@class = "form-control"})
+        @Html.ValidationMessageFor(h => h.Hotel.MaxRooms)
+
+    </div>
+
+    <input type="submit" value="Save"/>
+}
