@@ -1,0 +1,15 @@
+﻿@model HotelApp.DTOs.RoomDto
+
+@using (Html.BeginForm("Create", "Room", FormMethod.Post))
+{
+    @Html.LabelFor(a => a.Hotel.Name, new {@class = "form-label"})
+    @Html.DropDownListFor(h => h.Hotel.Id, new SelectList(@Model.Hotels,"Id", "Name"), new {@class = "form-control"})
+
+    @Html.LabelFor(h => h.Floor, new {@class = "form-label"})
+    @Html.DropDownListFor(h => h.Floor, new SelectList(@Model.Hotels,"Id", "Name"), new {@class = "form-control"})
+
+    @Html.LabelFor(a => a.RoomNumber, new {@class = "form-label"})
+    @Html.TextBoxFor(a => a.RoomNumber, new {@class = "form-control"})
+        
+    <input type="submit" value="Create", class="btn btn-success"}/>
+}

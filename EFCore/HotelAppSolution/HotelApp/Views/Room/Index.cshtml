@@ -1,3 +1,38 @@
-﻿@*@model List<HotelApp.DTOs.Room>*@
+﻿@model List<HotelApp.Models.Room>
 
-    <h2>What..?</h2>
+<h2>Rooms</h2>
+
+<br />
+@Html.ActionLink("Create Room", "Create", "Room", new {}, new {@class = "btn btn-success"})
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Hotel Id</th>
+      <th scope="col">Floor</th>
+      <th scope="col">Room Number</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+      @foreach (var @room in @Model)
+      {
+          <tr>
+              <td>
+                 @room.HotelId
+              </td>
+              <td>
+                 @room.Floor
+              </td>
+              <td>
+                 @room.RoomNumber
+              </td>
+              <td>
+                 @Html.ActionLink("Edit","Edit", "Room", new {id = @room.Id } ,new { @class= "btn btn-secondary" }) 
+                 @Html.ActionLink("Details","Details", "Room", new {id =@room.Id } ,new { @class= "btn btn-primary" })
+                 @Html.ActionLink("Delete","Delete", "Room", new {id = @room.Id } ,new { @class= "btn btn-danger" })
+              </td>
+          </tr>
+      }
+  </tbody>
+</table>

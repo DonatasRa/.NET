@@ -12,9 +12,10 @@ namespace HotelApp.DTOs
         public int CityId { get; set; }
 
         public List<City> SelectCities { get; set; }
+
         [MinLength(5)]
         public string Address { get; set; }
-        
+
         public int MaxRooms { get; set; }
     }
 }
