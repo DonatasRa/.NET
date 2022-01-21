@@ -16,7 +16,6 @@ namespace SchoolWebAPI.Controllers
         private readonly DataContext _dataContext;
         private readonly IMapper _mapper;
 
-
         public StudentController(DataContext dataContext, IMapper mapper)
         {
             _dataContext = dataContext;
