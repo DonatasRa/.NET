@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolWebAPI.Data;
 using SchoolWebAPI.Dtos;
@@ -37,7 +38,7 @@ namespace SchoolWebAPI.Controllers
         }
 
         [HttpPost]
-        public void Create(StudentDto student)
+        public IActionResult Create(StudentDto student)
         {
             var newStudent = new Student()
             {
@@ -47,10 +48,11 @@ namespace SchoolWebAPI.Controllers
             };
             _dataContext.Add(newStudent);
             _dataContext.SaveChanges();
+            return StatusCode(StatusCodes.Status201Created);
         }
 
         [HttpPut("{id}")]
-        public void Update(int id, StudentDto studentUpdate)
+        public IActionResult Update(int id, StudentDto studentUpdate)
         {
             var student = _dataContext.Students.Find(id);
 
@@ -59,14 +61,16 @@ namespace SchoolWebAPI.Controllers
             student.SchoolId = studentUpdate.SchoolId;
 
             _dataContext.SaveChanges();
+            return Ok("Record updated successfully");
         }
 
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
             var student = _dataContext.Students.Find(id);
             _dataContext.Remove(student);
             _dataContext.SaveChanges();
+            return Ok("Record Deleted");
         }
     }
 
