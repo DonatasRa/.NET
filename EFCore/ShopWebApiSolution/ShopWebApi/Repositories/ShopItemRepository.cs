@@ -14,5 +14,10 @@ namespace ShopWebApi.Repositories
         {
             return _dataContext.ShopItems.Select(x => x.Name).Contains(shopItemName);
         }
+
+        public bool CheckShopId(int id)
+        {
+            return _dbSet.Any(s => s.ShopId == id);
+        }
     }
 }

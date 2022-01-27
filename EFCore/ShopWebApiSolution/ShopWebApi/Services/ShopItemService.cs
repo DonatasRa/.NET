@@ -2,6 +2,7 @@
 using ShopWebApi.Dtos.ShopItemDtos;
 using ShopWebApi.Models;
 using ShopWebApi.Repositories;
+using ShopWebApi.Validators;
 
 namespace ShopWebApi.Services
 {
@@ -9,6 +10,7 @@ namespace ShopWebApi.Services
     {
         private readonly ShopItemRepository _shopItemRepository;
         public readonly IMapper _mapper;
+        private readonly ShopItemValidator _shopItemValidator = new();
 
         public ShopItemService(ShopItemRepository shopItemRepository, IMapper mapper)
         {
@@ -18,13 +20,13 @@ namespace ShopWebApi.Services
 
         public List<ShopItem> GetAll()
         {
-            var shops = _shopItemRepository.GetAll();
-            if (shops == null)
+            var shopItems = _shopItemRepository.GetAll();
+            if (shopItems == null)
             {
-                throw new ArgumentException("No Shops found");
+                throw new ArgumentException("No ShopItems found");
             }
 
-            return shops;
+            return shopItems;
         }
 
         public ShopItemDto GetById(int id)
@@ -32,7 +34,7 @@ namespace ShopWebApi.Services
             var shopItem = _shopItemRepository.GetById(id);
             if (shopItem == null)
             {
-                throw new ArgumentException("Shop not found");
+                throw new ArgumentException("ShopItem not found");
             }
 
             return _mapper.Map<ShopItemDto>(shopItem);
@@ -48,12 +50,20 @@ namespace ShopWebApi.Services
                 throw new ArgumentException("The Name already exists");
             }
 
+            var isValidShopId = _shopItemRepository.CheckShopId(mappedShopItem.ShopId);
+            if (!isValidShopId)
+            {
+                throw new ArgumentException($"ShopId {createShopItem.ShopId} not found");
+            }
+
             var model = new ShopItem()
             {
                 ShopId = createShopItem.ShopId,
                 Name = createShopItem.Name,
                 ItemPrice = createShopItem.ItemPrice
             };
+
+            ShopItemValidation(model);
 
             var modelId = _shopItemRepository.Create(model);
 
@@ -62,7 +72,7 @@ namespace ShopWebApi.Services
 
         public int Update(int id, ShopItemDto updateShopItem)
         {
-            var shop = _shopItemRepository.GetById(id);
+            var shopItem = _shopItemRepository.GetById(id);
 
             var doesNameExist = _shopItemRepository.CheckNameExist(updateShopItem.Name);
             if (doesNameExist)
@@ -70,9 +80,11 @@ namespace ShopWebApi.Services
                 throw new ArgumentException("The Name already exists");
             }
 
-            shop.Name = updateShopItem.Name;
+            shopItem.Name = updateShopItem.Name;
 
-            _shopItemRepository.Update(shop);
+            ShopItemValidation(shopItem);
+
+            _shopItemRepository.Update(shopItem);
 
             return id;
         }
@@ -80,6 +92,20 @@ namespace ShopWebApi.Services
         public void Delete(int id)
         {
             _shopItemRepository.Delete(id);
+        }
+
+        private ShopItem ShopItemValidation(ShopItem shopItem)
+        {
+            var validationResult = _shopItemValidator.Validate(shopItem);
+            if (!validationResult.IsValid)
+            {
+                foreach (var failure in validationResult.Errors)
+                {
+                    throw new ArgumentException("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage);
+                }
+            }
+
+            return shopItem;
         }
     }
 }

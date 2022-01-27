@@ -2,6 +2,7 @@
 using ShopWebApi.Dtos.ShopDtos;
 using ShopWebApi.Models;
 using ShopWebApi.Repositories;
+using ShopWebApi.Validators;
 
 namespace ShopWebApi.Services
 {
@@ -9,6 +10,7 @@ namespace ShopWebApi.Services
     {
         private readonly ShopRepository _shopRepository;
         public readonly IMapper _mapper;
+        private readonly ShopValidator _shopValidator = new();
 
         public ShopService(ShopRepository shopRepository, IMapper mapper)
         {
@@ -53,6 +55,8 @@ namespace ShopWebApi.Services
                 Name = createShop.Name
             };
 
+            ShopValidation(model);
+
             var modelId = _shopRepository.Create(model);
 
             return modelId;
@@ -70,6 +74,8 @@ namespace ShopWebApi.Services
 
             shop.Name = updateShop.Name;
 
+            ShopValidation(shop);
+
             _shopRepository.Update(shop);
 
             return id;
@@ -78,6 +84,20 @@ namespace ShopWebApi.Services
         public void Delete(int id)
         {
             _shopRepository.Delete(id);
+        }
+
+        private Shop ShopValidation(Shop shop)
+        {
+            var validationResult = _shopValidator.Validate(shop);
+            if (!validationResult.IsValid)
+            {
+                foreach (var failure in validationResult.Errors)
+                {
+                    throw new ArgumentException("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage);
+                }
+            }
+
+            return shop;
         }
     }
 }
