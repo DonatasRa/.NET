@@ -22,6 +22,7 @@ builder.Services.AddTransient<ShopService>();
 builder.Services.AddTransient<ShopItemService>();
 builder.Services.AddTransient<ShopRepository>();
 builder.Services.AddTransient<ShopItemRepository>();
+builder.Services.AddCors();
 
 var app = builder.Build();
 
@@ -33,6 +34,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
 
 app.UseAuthorization();
 

@@ -19,11 +19,11 @@ namespace ShopWebApi.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
             try
             {
-                var shop = _mapper.Map<List<GetShop>>(_shopService.GetAll());
+                var shop = _mapper.Map<List<GetShop>>(await _shopService.GetAllAsync());
                 return StatusCode(StatusCodes.Status200OK, shop);
             }
             catch (ArgumentException ex)
@@ -33,11 +33,11 @@ namespace ShopWebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
             try
             {
-                var shop = _mapper.Map<GetShop>(_shopService.GetById(id));
+                var shop = _mapper.Map<GetShop>(await _shopService.GetByIdAsync(id));
                 return StatusCode(StatusCodes.Status200OK, shop);
             }
             catch (ArgumentException ex)
@@ -47,11 +47,11 @@ namespace ShopWebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] CreateUpdateShop createShop)
+        public async Task<IActionResult> Create([FromBody] CreateUpdateShop createShop)
         {
             try
             {
-                var createdId = _shopService.Create(createShop);
+                var createdId = await _shopService.CreateAsync(createShop);
                 
                 return StatusCode(StatusCodes.Status201Created, createdId);
             }
@@ -62,11 +62,11 @@ namespace ShopWebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] CreateUpdateShop updateShop)
+        public async Task<IActionResult> Update(int id, [FromBody] CreateUpdateShop updateShop)
         {
             try
             {
-                _shopService.Update(id, updateShop);
+                await _shopService.UpdateAsync(id, updateShop);
             }
             catch (ArgumentException ex)
             {
@@ -77,11 +77,11 @@ namespace ShopWebApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                _shopService.Delete(id);
+                await _shopService.DeleteAsync(id);
                 return StatusCode(StatusCodes.Status204NoContent);
             }
             catch (ArgumentException ex)

@@ -18,9 +18,9 @@ namespace ShopWebApi.Services
             _mapper = mapper;
         }
 
-        public List<ShopItem> GetAll()
+        public async Task<List<ShopItem>> GetAllAsync()
         {
-            var shopItems = _shopItemRepository.GetAll();
+            var shopItems = await _shopItemRepository.GetAllAsync();
             if (shopItems == null)
             {
                 throw new ArgumentException("No ShopItems found");
@@ -29,9 +29,9 @@ namespace ShopWebApi.Services
             return shopItems;
         }
 
-        public ShopItemDto GetById(int id)
+        public async Task<ShopItemDto> GetByIdAsync(int id)
         {
-            var shopItem = _shopItemRepository.GetById(id);
+            var shopItem = await _shopItemRepository.GetByIdAsync(id);
             if (shopItem == null)
             {
                 throw new ArgumentException("ShopItem not found");
@@ -40,17 +40,17 @@ namespace ShopWebApi.Services
             return _mapper.Map<ShopItemDto>(shopItem);
         }
 
-        public int Create(ShopItemDto createShopItem)
+        public async Task<int> CreateAsync(ShopItemDto createShopItem)
         {
             var mappedShopItem = _mapper.Map<ShopItem>(createShopItem);
 
-            var doesNameExist = _shopItemRepository.CheckNameExist(mappedShopItem.Name);
+            var doesNameExist = await _shopItemRepository.CheckNameExistAsync(mappedShopItem.Name);
             if (doesNameExist)
             {
                 throw new ArgumentException("The Name already exists");
             }
 
-            var isValidShopId = _shopItemRepository.CheckShopId(mappedShopItem.ShopId);
+            var isValidShopId = await _shopItemRepository.CheckShopIdAsync(mappedShopItem.ShopId);
             if (!isValidShopId)
             {
                 throw new ArgumentException($"ShopId {createShopItem.ShopId} not found");
@@ -65,33 +65,35 @@ namespace ShopWebApi.Services
 
             ShopItemValidation(model);
 
-            var modelId = _shopItemRepository.Create(model);
+            var modelId = await _shopItemRepository.CreateAsync(model);
 
             return modelId;
         }
 
-        public int Update(int id, ShopItemDto updateShopItem)
+        public async Task<int> UpdateAsync(int id, ShopItemDto updateShopItem)
         {
-            var shopItem = _shopItemRepository.GetById(id);
+            var shopItem = await _shopItemRepository.GetByIdAsync(id);
 
-            var doesNameExist = _shopItemRepository.CheckNameExist(updateShopItem.Name);
+            var doesNameExist = await _shopItemRepository.CheckNameExistAsync(updateShopItem.Name);
             if (doesNameExist)
             {
                 throw new ArgumentException("The Name already exists");
             }
 
             shopItem.Name = updateShopItem.Name;
+            shopItem.ItemPrice = updateShopItem.ItemPrice;
+            shopItem.ShopId = updateShopItem.ShopId;
 
             ShopItemValidation(shopItem);
 
-            _shopItemRepository.Update(shopItem);
+            await _shopItemRepository.UpdateAsync(shopItem);
 
             return id;
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            _shopItemRepository.Delete(id);
+            await _shopItemRepository.DeleteAsync(id);
         }
 
         private ShopItem ShopItemValidation(ShopItem shopItem)

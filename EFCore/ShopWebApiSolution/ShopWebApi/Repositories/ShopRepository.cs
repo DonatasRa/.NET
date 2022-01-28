@@ -12,14 +12,14 @@ namespace ShopWebApi.Repositories
 
         }
 
-        public List<Shop> GetAllWithShopItems()
+        public async Task<List<Shop>> GetAllWithShopItemsAsync()
         {
-            return _dbSet.Include(s => s.ShopItems).ToList();
+            return await _dbSet.Include(s => s.ShopItems).ToListAsync();
         }
 
-        public bool CheckNameExist(string shopName)
+        public async Task<bool> CheckNameExistAsync(string shopName)
         {
-            return _dataContext.Shops.Select(x => x.Name).Contains(shopName);
+            return await _dbSet.AnyAsync(s => s.Name == shopName);
         }
     }
 }

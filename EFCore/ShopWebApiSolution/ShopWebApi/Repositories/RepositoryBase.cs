@@ -15,40 +15,40 @@ namespace ShopWebApi.Repositories
             _dbSet = _dataContext.Set<T>();
         }
 
-        public List<T> GetAll()
+        public async Task<List<T>> GetAllAsync()
         {
-            return _dbSet.ToList();
+            return await _dbSet.ToListAsync();
         }
         
-        public T GetById(int id)
+        public async Task<T> GetByIdAsync(int id)
         {
-            return _dbSet.FirstOrDefault(t => t.Id == id);
+            return await _dbSet.FirstOrDefaultAsync(i => i.Id == id);
         }
 
-        public int Create(T model)
+        public async Task<int> CreateAsync(T model)
         {
-            Add(model);
+            await AddAsync(model);
 
             return model.Id;
         }
 
-        public void Add(T entity)
+        public async Task AddAsync(T entity)
         {
             _dataContext.Add(entity);
-            _dataContext.SaveChanges();
+            await _dataContext.SaveChangesAsync();
         }
 
-        public void Update(T entity)
+        public async Task UpdateAsync(T entity)
         {
             _dataContext.Update(entity);
-            _dataContext.SaveChanges();
+            await _dataContext.SaveChangesAsync();
         }
 
-        public void Delete(int entityId)
+        public async Task DeleteAsync(int entityId)
         {
-            var entity = GetById(entityId);
+            var entity = await GetByIdAsync(entityId);
             _dataContext.Remove(entity);
-            _dataContext.SaveChanges();
+            await _dataContext.SaveChangesAsync();
         }
     }
 }

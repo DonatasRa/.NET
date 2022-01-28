@@ -1,4 +1,5 @@
-﻿using ShopWebApi.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using ShopWebApi.Data;
 using ShopWebApi.Models;
 
 namespace ShopWebApi.Repositories
@@ -10,14 +11,14 @@ namespace ShopWebApi.Repositories
             
         }
 
-        public bool CheckNameExist(string shopItemName)
+        public async Task<bool> CheckNameExistAsync(string shopItemName)
         {
-            return _dataContext.ShopItems.Select(x => x.Name).Contains(shopItemName);
+            return await _dataContext.ShopItems.AnyAsync(x => x.Name == shopItemName);
         }
 
-        public bool CheckShopId(int id)
+        public async Task<bool> CheckShopIdAsync(int id)
         {
-            return _dbSet.Any(s => s.ShopId == id);
+            return await _dbSet.AnyAsync(s => s.ShopId == id);
         }
     }
 }

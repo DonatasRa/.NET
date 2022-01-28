@@ -18,9 +18,9 @@ namespace ShopWebApi.Services
             _mapper = mapper;
         }
 
-        public List<GetShop> GetAll()
+        public async Task<List<GetShop>> GetAllAsync()
         {
-            var shops = _shopRepository.GetAllWithShopItems();
+            var shops = await _shopRepository.GetAllWithShopItemsAsync();
             if (shops == null)
             {
                 throw new ArgumentException("No Shops found");
@@ -29,9 +29,9 @@ namespace ShopWebApi.Services
             return _mapper.Map<List<GetShop>>(shops);
         }
 
-        public GetShop GetById(int id)
+        public async Task<GetShop> GetByIdAsync(int id)
         {
-            var shop = _shopRepository.GetById(id);
+            var shop = await _shopRepository.GetByIdAsync(id);
             if (shop == null)
             {
                 throw new ArgumentException("Shop not found");
@@ -40,11 +40,11 @@ namespace ShopWebApi.Services
             return _mapper.Map<GetShop>(shop);
         }
 
-        public int Create(CreateUpdateShop createShop)
+        public async Task<int> CreateAsync(CreateUpdateShop createShop)
         {
             var mappedShop = _mapper.Map<Shop>(createShop);
 
-            var doesNameExist = _shopRepository.CheckNameExist(mappedShop.Name);
+            var doesNameExist = await _shopRepository.CheckNameExistAsync(mappedShop.Name);
             if (doesNameExist)
             {
                 throw new ArgumentException("The Name already exists");
@@ -57,16 +57,16 @@ namespace ShopWebApi.Services
 
             ShopValidation(model);
 
-            var modelId = _shopRepository.Create(model);
+            var modelId = await _shopRepository.CreateAsync(model);
 
             return modelId;
         }
 
-        public int Update(int id, CreateUpdateShop updateShop)
+        public async Task<int> UpdateAsync(int id, CreateUpdateShop updateShop)
         {
-            var shop = _shopRepository.GetById(id);
+            var shop = await _shopRepository.GetByIdAsync(id);
 
-            var doesNameExist = _shopRepository.CheckNameExist(updateShop.Name);
+            var doesNameExist = await _shopRepository.CheckNameExistAsync(updateShop.Name);
             if (doesNameExist)
             {
                 throw new ArgumentException("The Name already exists");
@@ -76,14 +76,14 @@ namespace ShopWebApi.Services
 
             ShopValidation(shop);
 
-            _shopRepository.Update(shop);
+            await _shopRepository.UpdateAsync(shop);
 
             return id;
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            _shopRepository.Delete(id);
+            await _shopRepository.DeleteAsync(id);
         }
 
         private Shop ShopValidation(Shop shop)
