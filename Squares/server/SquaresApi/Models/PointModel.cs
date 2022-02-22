@@ -12,6 +12,7 @@ namespace SquaresApi.Models
         [Range(-5000, 5000)]
         public int YCoordinate { get; set; }
 
-        public PointList PointList { get; set; }
+        public int PointListId { get; set; }
+
     }
 }

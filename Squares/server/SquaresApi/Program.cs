@@ -11,7 +11,9 @@ builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(
     ));
 builder.Services.AddControllers();
 builder.Services.AddTransient<PointService>();
+builder.Services.AddTransient<PointListService>();
 builder.Services.AddTransient<PointRepository>();
+builder.Services.AddTransient<PointListRepository>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -38,6 +40,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseRouting();
 
 app.UseCors("AllowOrigin");
 

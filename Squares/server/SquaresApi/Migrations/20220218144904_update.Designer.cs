@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SquaresApi.Data;
 
@@ -10,9 +11,10 @@ using SquaresApi.Data;
 namespace SquaresApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220218144904_update")]
+    partial class update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +36,7 @@ namespace SquaresApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PointLists", (string)null);
+                    b.ToTable("PointLists");
                 });
 
             modelBuilder.Entity("SquaresApi.Models.PointModel", b =>
@@ -58,7 +60,7 @@ namespace SquaresApi.Migrations
 
                     b.HasIndex("PointListId");
 
-                    b.ToTable("Points", (string)null);
+                    b.ToTable("Points");
                 });
 
             modelBuilder.Entity("SquaresApi.Models.PointModel", b =>

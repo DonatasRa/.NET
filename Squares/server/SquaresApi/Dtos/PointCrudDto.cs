@@ -1,13 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
-
+﻿
 namespace SquaresApi.Dtos
 {
     public class PointCrudDto
     {
-        [Range(-5000, 5000)]
-        public int XCoordinate { get; set; }
+        public int Id { get; set; }
 
-        [Range(-5000, 5000)]
+        public int XCoordinate { get; set; }
+        
         public int YCoordinate { get; set; }
+
+        public int PointListId { get; set; }
     }
 }

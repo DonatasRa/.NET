@@ -9,6 +9,7 @@ namespace SquaresApi.Automapper
         public MappingProfile()
         {
             CreateMap<PointModel, PointCrudDto>().ReverseMap();
+            CreateMap<PointList, PointListDto>().ReverseMap();
         }
     }
 }

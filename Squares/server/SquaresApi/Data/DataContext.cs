@@ -17,9 +17,7 @@ namespace SquaresApi.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<PointList>()
-                .HasMany(p => p.Points)
-                .WithOne(pl => pl.PointList);
+
         }
     }
 }

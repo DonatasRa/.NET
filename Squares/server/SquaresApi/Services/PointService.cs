@@ -27,7 +27,7 @@ namespace SquaresApi.Services
             return _mapper.Map<List<PointCrudDto>>(points);
         }
 
-        public async Task<PointCrudDto> GetPointByIdAsync(int id)
+        public async Task<PointModel> GetPointByIdAsync(int id)
         {
             var point = await _pointRepository.GetByIdAsync(id);
             if (point == null)
@@ -35,7 +35,7 @@ namespace SquaresApi.Services
                 throw new ArgumentException("Point with such Id does not exist");
             }
 
-            return _mapper.Map<PointCrudDto>(point);
+            return point;
         }
 
         public async Task RemoveAsync(int id)
@@ -70,8 +70,9 @@ namespace SquaresApi.Services
 
             point.XCoordinate = updatePoint.XCoordinate;
             point.YCoordinate = updatePoint.YCoordinate;
+            point.PointListId = updatePoint.PointListId;
 
-            await _pointRepository.Update(_mapper.Map<PointModel>(point));
+            await _pointRepository.Update(point);
         }
     }
 }
