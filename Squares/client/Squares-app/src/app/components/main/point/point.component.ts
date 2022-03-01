@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import CreatePoint from 'src/app/models/CreatePoint';
 import Point from 'src/app/models/Point';
 import { PointService } from 'src/app/services/point.service';
@@ -10,10 +10,10 @@ import { PointService } from 'src/app/services/point.service';
 })
 export class PointComponent implements OnInit {
   @Input() points: Point[] = [];
-  public updatePointId: number = NaN;
-  public updateXCoordinate: number = NaN;
-  public updateYCoordinate: number = NaN;
-  public updatePointListId: number = NaN;
+  public PointId: number = NaN;
+  public xCoordinate: number = NaN;
+  public yCoordinate: number = NaN;
+  public pointListId: number = NaN;
 
   constructor(private pointService: PointService) {}
 
@@ -24,31 +24,39 @@ export class PointComponent implements OnInit {
   }
 
   public updatePoint(pointId: number) {
-    this.updatePointId = pointId;
+    this.PointId = pointId;
     let index = this.points.findIndex((x) => x.id == pointId);
-    this.updateXCoordinate = this.points[index].xCoordinate;
-    this.updateYCoordinate = this.points[index].yCoordinate;
-    this.updatePointListId = this.points[index].pointListId;
+    this.xCoordinate = this.points[index].xCoordinate;
+    this.yCoordinate = this.points[index].yCoordinate;
+    this.pointListId = this.points[index].pointListId;
   }
 
   public submitUpdatedPoint(): void {
     let updatePoint: CreatePoint = {
-      xCoordinate: this.updateXCoordinate,
-      yCoordinate: this.updateYCoordinate,
-      pointListId: this.updatePointListId,
+      xCoordinate: this.xCoordinate,
+      yCoordinate: this.yCoordinate,
+      pointListId: this.pointListId,
     };
-    this.pointService.update(this.updatePointId, updatePoint).subscribe();
-    // this.dataSource.forEach((x) => {
-    //   if (x.id == this.idToEdit) {
-    //     x.name = this.updateName;
-    //   }
-    // });
-    this.updatePointId = NaN;
+    this.pointService.update(this.PointId, updatePoint).subscribe();
+    this.PointId = NaN;
   }
 
-  public removePoint(removePointEvent: any): void {
-    let id = removePointEvent;
-    this.pointService.remove(id).subscribe();
-    this.points = this.points.filter((s) => s.id != id);
+  public createPoint(createPointEvent: any): void {
+    let createPoint: CreatePoint = {
+      xCoordinate: createPointEvent.xCoordinate,
+      yCoordinate: createPointEvent.yCoordinate,
+      pointListId: createPointEvent.pointListId,
+    };
+
+    this.pointService.create(createPoint).subscribe((pointId) => {
+      let point: Point = {
+        id: pointId,
+        xCoordinate: createPoint.xCoordinate,
+        yCoordinate: createPoint.yCoordinate,
+        pointListId: createPoint.pointListId,
+      };
+
+      this.points.push(point);
+    });
   }
 }

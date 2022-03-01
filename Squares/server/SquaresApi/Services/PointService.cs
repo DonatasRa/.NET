@@ -50,7 +50,8 @@ namespace SquaresApi.Services
             var point = new PointModel()
             {
                 XCoordinate = createPoint.XCoordinate,
-                YCoordinate = createPoint.YCoordinate
+                YCoordinate = createPoint.YCoordinate,
+                PointListId = createPoint.PointListId,
             };
 
             var pointId = await _pointRepository.CreateAsync(point);

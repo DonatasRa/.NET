@@ -14,9 +14,9 @@ export class UpdatePointComponent implements OnInit {
   @Output() updatePointEvent = new EventEmitter<CreatePoint>();
 
   public updatePoint: CreatePoint = {
-    xCoordinate: NaN,
-    yCoordinate: NaN,
-    pointListId: NaN,
+    xCoordinate: 0,
+    yCoordinate: 0,
+    pointListId: 0,
   };
 
   constructor(

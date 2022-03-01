@@ -8,8 +8,11 @@ import {
 } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import CreatePoint from 'src/app/models/CreatePoint';
+import Point from 'src/app/models/Point';
 import PointList from 'src/app/models/PointList';
+import { PointService } from 'src/app/services/point.service';
 import { PointListService } from 'src/app/services/pointList.service';
+import { StateService } from 'src/app/services/state.service';
 
 @Component({
   selector: 'app-create-point',
@@ -18,31 +21,25 @@ import { PointListService } from 'src/app/services/pointList.service';
 })
 export class CreatePointComponent implements OnInit {
   @Input() pointListsInput: PointList[] = [];
-  @Output() createPointEvent = new EventEmitter<CreatePoint>();
 
   public newPoint: CreatePoint = {
-    xCoordinate: NaN,
-    yCoordinate: NaN,
-    pointListId: NaN,
+    xCoordinate: 0,
+    yCoordinate: 0,
+    pointListId: 0,
   };
-
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private pointListService: PointListService
+    private pointListService: PointListService,
+    private stateService: StateService
   ) {}
 
   ngOnInit(): void {
-    this.pointListService.getAll().subscribe((pointData) => {
-      this.pointListsInput = pointData;
+    this.pointListService.getAll().subscribe((pointListData) => {
+      this.pointListsInput = pointListData;
     });
   }
 
   public createPoint() {
-    this.createPointEvent.emit(this.newPoint);
-    // this.newPoint = {
-    //   xCoordinate: NaN,
-    //   yCoordinate: NaN,
-    //   pointListId: NaN,
-    // };
+    this.stateService.create(this.newPoint);
   }
 }
