@@ -7,6 +7,7 @@ namespace CreditApplicationApi.UnitTests
 {
     public class CreditApplicationServiceTests
     {
+        // We want to test more than 1 scenario, research InlineData attribute
         [Fact]
         public void GetCreditAnswer_GivenValidInputs_GetCorrectAnswer()
         {
@@ -23,6 +24,8 @@ namespace CreditApplicationApi.UnitTests
             var answer = creditApplicationService.GetCreditAnswer(valdiCreditApplication);
 
             //assert
+
+            // Fluent assertion nuget please
             Assert.True(answer.Decision);
             Assert.Equal(4, answer.InterestRate);
         }

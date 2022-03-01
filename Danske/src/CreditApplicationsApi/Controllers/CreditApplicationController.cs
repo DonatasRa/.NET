@@ -17,7 +17,7 @@ namespace CreditApplicationsApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Apply(CreditApplication creditApplication)
+        public IActionResult Get(CreditApplication creditApplication)
         {
             try
             {
