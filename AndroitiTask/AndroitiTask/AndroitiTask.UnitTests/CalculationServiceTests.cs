@@ -24,38 +24,26 @@ namespace AndroitiTask.UnitTests
             number.Should().Be(11);
         }
 
-        [Fact]
-        public void GetWordCount_GivenSampleText_CalculateWordsCorrectly()
+        [Theory]
+        [InlineData("Hello World", 2)]
+        [InlineData("", 0)]
+        public void GetWordCount_GivenSampleText_CalculateWordsCorrectly(string text, int wordCount)
         {
             //Arrange
             Mock<IFileService> fileServiceMock = new Mock<IFileService>();
 
             CalculationService service = new CalculationService(fileServiceMock.Object);
 
-            string text = "Hello World";
-
             fileServiceMock.Setup(fs => fs.GetText()).Returns(text);
             //Act
             int number = service.GetWordCount();
             //Assert
-            number.Should().Be(2);
+            number.Should().Be(wordCount);
         }
 
-        [Fact]
-        public void GetWordCount_GivenEmptyString_CalculateWordsCorrectly()
+        private void help()
         {
-            //Arrange
-            Mock<IFileService> fileServiceMock = new Mock<IFileService>();
 
-            CalculationService service = new CalculationService(fileServiceMock.Object);
-
-            string text = "";
-
-            fileServiceMock.Setup(fs => fs.GetText()).Returns(text);
-            //Act
-            int number = service.GetWordCount();
-            //Assert
-            number.Should().Be(0);
         }
     }
 }
