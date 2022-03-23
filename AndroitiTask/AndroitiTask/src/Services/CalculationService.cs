@@ -29,14 +29,21 @@ namespace AndroitiTask.Services
             int wordCounter = 1;
             int l = 0;
 
-            while (l <= text.Length - 1)
+            if(text.Length != 0)
             {
-                if (text[l]==' ' || text[l]=='\n' || text[l]=='\t')
+                while (l <= text.Length - 1)
                 {
-                    wordCounter++;
-                }
+                    if (text[l]==' ' || text[l]=='\n' || text[l]=='\t')
+                    {
+                        wordCounter++;
+                    }
 
-                l++;
+                    l++;
+                } 
+            } 
+            else
+            {
+                wordCounter = 0;
             }
 
             return wordCounter;

@@ -40,5 +40,22 @@ namespace AndroitiTask.UnitTests
             //Assert
             number.Should().Be(2);
         }
+
+        [Fact]
+        public void GetWordCount_GivenEmptyString_CalculateWordsCorrectly()
+        {
+            //Arrange
+            Mock<IFileService> fileServiceMock = new Mock<IFileService>();
+
+            CalculationService service = new CalculationService(fileServiceMock.Object);
+
+            string text = "";
+
+            fileServiceMock.Setup(fs => fs.GetText()).Returns(text);
+            //Act
+            int number = service.GetWordCount();
+            //Assert
+            number.Should().Be(0);
+        }
     }
 }
