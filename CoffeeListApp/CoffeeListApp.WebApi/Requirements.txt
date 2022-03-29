@@ -1,0 +1,13 @@
+Create a restful Webapi for coffee List application with .net 6.
+Requirements (Image is optional):
+
+•      Create a coffee price list billboard. Billboard must show a coffee image, its price and coffee title underneath the image
+•      User should see 4 coffee items per row. Amount of coffee items in billboard is not limited. 
+•      There must be possibility to add a new coffee to a price list billboard
+•      There must be a possibility to remove a coffee from a price list billboard
+
+Advanced
+Introduce Pagination to allow specify how many coffee items you want to get:
+https://code-maze.com/paging-aspnet-core-webapi/
+
+Leave 'Image' functionality the last as it will be the hardest challenge.
