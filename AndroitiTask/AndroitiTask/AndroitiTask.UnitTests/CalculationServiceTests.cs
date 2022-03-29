@@ -40,10 +40,5 @@ namespace AndroitiTask.UnitTests
             //Assert
             number.Should().Be(wordCount);
         }
-
-        private void help()
-        {
-
-        }
     }
 }
