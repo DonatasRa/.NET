@@ -26,5 +26,36 @@ namespace CoffeeListApp.Domain.Services
 
             return coffees;
         }
+
+        public async Task<Coffee> GetByIdAsync(int id)
+        {
+            var coffee = await _coffeeRepository.GetByIdAsync(id);
+            if (coffee == null)
+            {
+                throw new ArgumentException("Coffee with such Id does not exist");
+            }
+
+            return coffee;
+        }
+
+        public async Task RemoveAsync(int id)
+        {
+            await _coffeeRepository.RemoveAsync(id);
+        }
+
+        public async Task<int> CreateAsync(Coffee createCoffee)
+        {
+            var doesCoffeeExist = await _coffeeRepository.CheckCoffeeExistAsync(createCoffee.Name);
+
+            var coffee = new Coffee()
+            {
+                Name = createCoffee.Name,
+                Price = createCoffee.Price,
+            };
+
+            var coffeeId = await _coffeeRepository.CreateAsync(coffee);
+
+            return coffeeId;
+        }
     }
 }

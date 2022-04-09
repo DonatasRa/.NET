@@ -1,11 +1,7 @@
 ﻿using CoffeeListApp.Data;
 using CoffeeListApp.Domain.Interfaces;
 using CoffeeListApp.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoffeeListApp.Infrastructure.Repositories
 {
@@ -14,6 +10,11 @@ namespace CoffeeListApp.Infrastructure.Repositories
         public CoffeeRepository(DataContext dataContext) : base(dataContext)
         {
 
+        }
+
+        public async Task<bool> CheckCoffeeExistAsync(string name)
+        {
+            return await _dbSet.AnyAsync(c => c.Name == name);
         }
     }
 }
